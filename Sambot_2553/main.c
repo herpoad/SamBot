@@ -49,10 +49,8 @@ int main(void)
     __bis_SR_register(GIE); // interrupts enabled
 
     while(1) {
-        if(on == 1) {
-            R_avancer();
-            send_spi('0');
-        }
+        R_avancer(on);
+        send_spi('0');
         if(log == 1) {
             TXdata(obstacle);
         }

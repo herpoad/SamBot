@@ -5,7 +5,6 @@
 #define TRIGGER BIT4
 
 int miliseconds;
-int distance;
 long sensor;
 
 
@@ -23,9 +22,9 @@ void init_ultrason(void){
 }
 
 
-int get_distance_ultrason(void)
+int get_distance_ultrason()
 {
-
+    int distance;
     P1DIR |= TRIGGER;          // trigger pin as output
     P1OUT |= TRIGGER;          // generate pulse
     __delay_cycles(10);             // for 10us
@@ -36,14 +35,15 @@ int get_distance_ultrason(void)
     P1IES &= ~ECHO;         // rising edge on ECHO pin
     __delay_cycles(30000);          // delay for 30ms (after this time echo times out if there is no object detected)
     distance = sensor/58;           // converting ECHO lenght into cm
+    return distance;
+}
+
+int is_obstacle(unsigned int distance) {
     if(distance > 8) {
         return 0;
-    }
-    else {
+    } else {
         return 1;
     }
-
-
 }
 
 #pragma vector=PORT1_VECTOR

@@ -4,29 +4,25 @@
 
 #define SEUIL 400
 
-volatile unsigned int thex = 0;
 void init_infra(void) {
     ADC_init();
 }
 
-int get_distance_infra(void)
-{
-	volatile unsigned int i, somme=0;
-
-	for(i=0; i<5; i++){
+int get_distance_infra(void) {
+    unsigned int sum = 0;
+    for(i=0; i<5; i++){
 	    if (i != 0){
 	        ADC_Demarrer_conversion(0);
-	        thex = ADC_Lire_resultat();
+	        sum = ADC_Lire_resultat();
 	    }
 	}
+    return sum;
+}
 
-    if(thex < SEUIL){
+int is_hole(unsigned int sum) {
+    if(sum > SEUIL){
         return 1;
-    }
-    else{
+    } else {
         return 0;
     }
-
-
-
 }

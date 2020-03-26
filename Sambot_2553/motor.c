@@ -1,24 +1,24 @@
 #include <msp430.h>
 
 
-void R_avancer()
+void R_avancer(unsigned int on)
 {
+    if(on == 1) {
+        TA1CCR0 = 2000;
+        P2DIR |= BIT5;
+        P2DIR &=~ BIT1;
+        P2SEL |= BIT1|BIT5;
 
-    TA1CCR0 = 2000;
-    P2DIR |= BIT5;
-    P2DIR &=~ BIT1;
-    P2SEL |= BIT1|BIT5;
+        volatile unsigned int i;
 
-    volatile unsigned int i;
+        TA1CCR1 = 400;
+        TA1CCR2 = 400;
 
-    TA1CCR1 = 400;
-    TA1CCR2 = 400;
+        for(i=60000;i>0;i--);
 
-    for(i=60000;i>0;i--);
-
-    TA1CCR1 = 10;
-    TA1CCR2 = 10;
-
+        TA1CCR1 = 10;
+        TA1CCR2 = 10;
+    }
 }
 
 void R_tourner_gauche()
@@ -40,24 +40,33 @@ void R_tourner_gauche()
     TA1CCR2 = 10;
 }
 
-void R_tourner_droite()
+void R_tourner_droite(unsigned int on)
 {
-    TA1CCR0 = 2000;
+    if(on == 1) {
+        TA1CCR0 = 2000;
 
-    P2DIR &=~ (BIT1|BIT5);
-    P2SEL |= BIT1|BIT5;
+        P2DIR &=~ (BIT1|BIT5);
+        P2SEL |= BIT1|BIT5;
 
-    volatile unsigned int k;
+        volatile unsigned int k;
 
-    TA1CCR1 = 450;
-    TA1CCR2 = 450;
+        TA1CCR1 = 450;
+        TA1CCR2 = 450;
 
 
-    for(k=29000;k>0;k--);
+        for(k=29000;k>0;k--);
 
-    TA1CCR1 = 10;
-    TA1CCR2 = 10;
+        TA1CCR1 = 10;
+        TA1CCR2 = 10;
+    }
+}
 
+void R_demi_tour(unsigned int on)
+{
+    if(on == 1) {
+        R_tourner_droite();
+        R_tourner_droite();
+    }
 }
 
 
