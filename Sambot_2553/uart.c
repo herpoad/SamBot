@@ -16,10 +16,6 @@ void init_UART(void)
 
     /* Enable USCI_A0 RX interrupt */
     IE2 |= UCA0RXIE;
-
-    P1DIR |= BIT0 | BIT6;
-
-    P1OUT &= ~(BIT0) & ~(BIT6);
 }
 
 void TXdata( unsigned char c )
@@ -28,6 +24,33 @@ void TXdata( unsigned char c )
     UCA0TXBUF = c;              // TX -> RXed character
 }
 
+//void TXint(unsigned int i)
+//{
+//    while (!(IFG2 & UCA0TXIFG));  // USCI_A0 TX buffer ready?
+//    UCA0TXBUF = i;              // TX -> RXed character
+//}
+
+//void TXObstacle(unsigned int i)
+//{
+//    TXdatas(intToString(i));
+//    TXdatas("\r\n");
+//}
+//
+//void TXHole(unsigned int i)
+//{
+//    TXdatas("hole: ");
+//    TXdatas(intToString(i));
+//    TXdatas("\r\n");
+//}
+//
+//char* intToString(int i)
+//{
+//    char str[12];
+//    sprintf(str, "%d", i);
+//    return str;
+//}
+//
+//
 void TXdatas(const char *msg)
 {
     int i = 0;

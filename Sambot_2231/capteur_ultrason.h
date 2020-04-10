@@ -1,5 +1,4 @@
-
-
+extern int miliseconds;
 
 extern void init_ultrason(void);
 

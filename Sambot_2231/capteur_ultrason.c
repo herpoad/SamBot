@@ -9,12 +9,8 @@ long sensor;
 
 
 void init_ultrason(void){
-    BCSCTL1 = CALBC1_1MHZ;
-    DCOCTL = CALDCO_1MHZ;                     // submainclock 1mhz
-    WDTCTL = WDTPW + WDTHOLD;                 // Stop WDT
-
-    CCTL0 = CCIE;                             // CCR0 interrupt enabled
-    CCR0 = 1000;                  // 1ms at 1mhz
+    TACCTL0 = CCIE;                             // CCR0 interrupt enabled
+    TACCR0 = 1000;                  // 1ms at 1mhz
     TACTL = TASSEL_2 + MC_1;                  // SMCLK, upmode
 
     P1IFG  = 0x00;                //clear all interrupt flags

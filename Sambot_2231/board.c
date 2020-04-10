@@ -18,14 +18,12 @@ void init_board( void )
 
     // Initialisation des registres
     P1SEL  = 0x00;        // GPIO
-    P1SEL2 = 0x00;        // GPIO
+    //P1SEL2 = 0x00;        // GPIO
     P2SEL  = 0x00;        // GPIO
-    P2SEL2 = 0x00;        // GPIO
+    //P2SEL2 = 0x00;        // GPIO
     P1DIR = 0x00;         // IN
     P2DIR = 0x00;         // IN
 
-    P2SEL|=BIT6;
-    P2SEL&=~BIT7;
-    P2SEL2&=~(BIT6|BIT7);// Timer
+    P2SEL|=BIT6;// Port 1, ligne  en fonction secondaire
     P2DIR|=BIT6;
 }
